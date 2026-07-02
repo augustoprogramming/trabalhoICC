@@ -5,6 +5,10 @@ int lerOpcaoMenu(void);
 
 int main(){
     int opcao;
+    char nome[10][50];
+    char email[10][30];
+    float salario[10];
+    int funcionarios = 0;
 
     do
     {
@@ -12,7 +16,12 @@ int main(){
     
         switch (opcao){
             case 1:
+                if(funcionarios == 10){
+                    printf("AGENDA CHEIA!");
+                    break;
+                }
                 // funcao cadastrar funcionario
+                funcionarios++;
                 break;
 
             case 2:
@@ -39,7 +48,7 @@ int main(){
                 printf("Erro inesperado\n");
                 break;
         }
-            
+
     } while (opcao != 6);
 
     return 0;
