@@ -2,6 +2,9 @@
 
 int lerInteiroNoIntervalo (int minimo, int maximo);
 int lerOpcaoMenu(void);
+void cadastrarNome(char nome[][50], int indice);
+void cadastrarEmail(char email[][30], int indice);
+float cadastrarSalario(float salario[], int indice);
 
 int main(){
     int opcao;
@@ -16,10 +19,13 @@ int main(){
     
         switch (opcao){
             case 1:
-                if(funcionarios == 10){
-                    printf("AGENDA CHEIA!");
+                if(funcionarios < 10){
+                    printf("AGENDA CHEIA! Por favor escolha outra opcao!!!");
                     break;
                 }
+                cadastrarNome(nome, funcionarios);
+                cadastrarEmail(email, funcionarios);
+                cadastrarSalario(salario, funcionarios);
                 // funcao cadastrar funcionario
                 funcionarios++;
                 break;
@@ -99,4 +105,19 @@ int lerOpcaoMenu(void) {
     opcao = lerInteiroNoIntervalo(1, 6);
     
     return opcao;
+}
+
+void cadastrarNome(char nome[][50], int indice){
+        printf("Nome do funcionario: ");
+        scanf("\n%[^\n]", nome[indice]);
+}
+
+void cadastrarEmail(char email[][30], int indice){
+        printf("E-mail do funcionario: ");
+        scanf("\n%[^\n]", email[indice]);
+}
+
+float cadastrarSalario(float salario[], int indice){
+        printf("Salario do funcionario: ");
+            scanf("%f", &salario[indice]);
 }
