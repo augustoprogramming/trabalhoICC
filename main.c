@@ -4,6 +4,43 @@ int lerInteiroNoIntervalo (int minimo, int maximo);
 int lerOpcaoMenu(void);
 
 int main(){
+    int opcao;
+
+    do
+    {
+        opcao = lerOpcaoMenu();
+    
+        switch (opcao){
+            case 1:
+                // funcao cadastrar funcionario
+                break;
+
+            case 2:
+                // funcao mostrar funcionários
+                break;
+
+            case 3:
+                // funcao buscar funcionário
+                break;
+
+            case 4:
+                // funcao mostrar maior salário
+                break;
+            
+            case 5:
+                // funcao calcular média salarial
+                break;
+            
+            case 6:
+                printf("Finalizando o programa...\n");
+                break;
+            
+            default:
+                printf("Erro inesperado\n");
+                break;
+        }
+            
+    } while (opcao != 6);
 
     return 0;
 }
@@ -32,7 +69,7 @@ int lerInteiroNoIntervalo (int minimo, int maximo){
 
     return valor;
 }
-int lerOpcaoMenu(void){
+int lerOpcaoMenu(void) {
     int opcao;
 
     printf(
@@ -48,7 +85,7 @@ int lerOpcaoMenu(void){
         "  [6] Sair\n"
         "\n"
         "Escolha uma opcao > "
-);
+    );
 
     opcao = lerInteiroNoIntervalo(1, 6);
     
