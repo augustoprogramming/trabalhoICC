@@ -6,6 +6,8 @@ int cadastrarNome(char nome[][50], int indice);
 int cadastrarEmail(char email[][30], int indice);
 int cadastrarSalario(float salario[], int indice);
 float SalarioValido(void);
+void mostrarFuncionarios(char nome[][50], char email[][30], float salario[], int funcionarios);
+
 
 int main(){
     int opcao;
@@ -39,6 +41,7 @@ int main(){
 
             case 2:
                 // funcao mostrar funcionários
+                mostrarFuncionarios(nome, email, salario, funcionarios);
                 break;
 
             case 3:
@@ -169,4 +172,15 @@ float SalarioValido(void){
     } while (entradaInvalida);
 
     return valor;
+}
+void mostrarFuncionarios(char nome[][50], char email[][30], float salario[], int funcionarios) {
+    if (funcionarios == 0){
+        printf("\nNenhum funcionario cadastrado ainda.\n");
+        return;
+    }
+    printf("\n %-4s %-30s %-25s %-s\n", "Ind", "Nome", "E-mail", "Salario"); //imprime um aalgo, ocupando um espaço de N caracteres, alinhada à esquerda (o '-' faz isso, sem o '-', alinharia à direita)
+                                                                           // esses números garantem que as colunas fiquem alinhadas 
+    for(int i = 0; i < funcionarios; i++){
+         printf("%-4d %-30s %-25s %.2f\n", i + 1, nome[i], email[i], salario[i]);
+    }
 }
