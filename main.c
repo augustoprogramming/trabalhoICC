@@ -2,9 +2,10 @@
 
 int lerInteiroNoIntervalo (int minimo, int maximo);
 int lerOpcaoMenu(void);
-void cadastrarNome(char nome[][50], int indice);
-void cadastrarEmail(char email[][30], int indice);
-float cadastrarSalario(float salario[], int indice);
+int cadastrarNome(char nome[][50], int indice);
+int cadastrarEmail(char email[][30], int indice);
+int cadastrarSalario(float salario[], int indice);
+float SalarioValido(void);
 
 int main(){
     int opcao;
@@ -19,15 +20,21 @@ int main(){
     
         switch (opcao){
             case 1:
-                if(funcionarios < 10){
-                    printf("AGENDA CHEIA! Por favor escolha outra opcao!!!");
+                if(funcionarios == 10){
+                    printf("AGENDA CHEIA! Por favor escolha outra opcao!!!\n");
                     break;
                 }
-                cadastrarNome(nome, funcionarios);
-                cadastrarEmail(email, funcionarios);
-                cadastrarSalario(salario, funcionarios);
-                // funcao cadastrar funcionario
-                funcionarios++;
+
+                int verificar_nome = cadastrarNome(nome, funcionarios);
+                int verificar_email = cadastrarEmail(email, funcionarios);
+                int verificar_salario = cadastrarSalario(salario, funcionarios);
+
+                if (verificar_nome && verificar_email && verificar_salario) {
+                    funcionarios++;
+                    printf("Funcionario cadastrado com sucesso!\n");
+                } else {
+                    printf("Falha no cadastro. Tente novamente.\n");
+                }
                 break;
 
             case 2:
@@ -72,7 +79,6 @@ int lerInteiroNoIntervalo (int minimo, int maximo){
             printf("Entrada invalida\n");
             while(getchar() != '\n');
         }
-
         else {
             entradaInvalida = (valor > maximo || valor < minimo);
             if (entradaInvalida) {
@@ -84,6 +90,7 @@ int lerInteiroNoIntervalo (int minimo, int maximo){
 
     return valor;
 }
+
 int lerOpcaoMenu(void) {
     int opcao;
 
@@ -107,17 +114,59 @@ int lerOpcaoMenu(void) {
     return opcao;
 }
 
-void cadastrarNome(char nome[][50], int indice){
-        printf("Nome do funcionario: ");
-        scanf("\n%[^\n]", nome[indice]);
+int cadastrarNome(char nome[][50], int indice){
+    printf("Nome do funcionario: ");
+    int resultado = scanf(" %49[^\n]", nome[indice]);
+
+    if (resultado != 1) {
+        printf("Nome invalido.\n");
+        while (getchar() != '\n');
+        return 0;
+    }
+
+    return 1;
 }
 
-void cadastrarEmail(char email[][30], int indice){
-        printf("E-mail do funcionario: ");
-        scanf("\n%[^\n]", email[indice]);
+int cadastrarEmail(char email[][30], int indice){
+    printf("E-mail do funcionario: ");
+    int resultado = scanf(" %29[^\n]", email[indice]);
+
+    if (resultado != 1) {
+        printf("E-mail invalido.\n");
+        while (getchar() != '\n');
+        return 0;
+    }
+
+    return 1;
 }
 
-float cadastrarSalario(float salario[], int indice){
+int cadastrarSalario(float salario[], int indice){
+    salario[indice] = SalarioValido();
+    return 1;
+}
+
+float SalarioValido(void){
+    float valor;
+    int resultadoLeitura, entradaInvalida;
+
+    do
+    {
         printf("Salario do funcionario: ");
-            scanf("%f", &salario[indice]);
+        resultadoLeitura = scanf("%f", &valor);
+
+        if (resultadoLeitura != 1) {
+            entradaInvalida = 1;
+            printf("Entrada invalida (deve ser um numero)\n");
+            while (getchar() != '\n');
+        }
+        else {
+            entradaInvalida = (valor < 0);
+            if (entradaInvalida) {
+                printf("Salario nao pode ser negativo\n");
+            }
+        }
+
+    } while (entradaInvalida);
+
+    return valor;
 }
