@@ -1,6 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 int lerInteiroNoIntervalo (int minimo, int maximo);
 int lerOpcaoMenu(void);
@@ -9,10 +7,7 @@ int cadastrarEmail(char email[][30], int indice);
 int cadastrarSalario(float salario[], int indice);
 float SalarioValido(void);
 void mostrarFuncionarios(char nome[][50], char email[][30], float salario[], int funcionarios);
-void buscarFuncionario(char nomes[][50], char emails[][30], float salarios[], int qtdFuncionarios);
-void limparBuffer(void);
-void pausar(void);
-void limpar(void);
+
 
 int main(){
     int opcao;
@@ -50,7 +45,7 @@ int main(){
                 break;
 
             case 3:
-                buscarFuncionario(nome, email, salario, funcionarios);
+                // funcao buscar funcionário
                 break;
 
             case 4:
@@ -98,6 +93,7 @@ int lerInteiroNoIntervalo (int minimo, int maximo){
 
     return valor;
 }
+
 int lerOpcaoMenu(void) {
     int opcao;
 
@@ -120,6 +116,7 @@ int lerOpcaoMenu(void) {
     
     return opcao;
 }
+
 int cadastrarNome(char nome[][50], int indice){
     printf("Nome do funcionario: ");
     int resultado = scanf(" %49[^\n]", nome[indice]);
@@ -132,6 +129,7 @@ int cadastrarNome(char nome[][50], int indice){
 
     return 1;
 }
+
 int cadastrarEmail(char email[][30], int indice){
     printf("E-mail do funcionario: ");
     int resultado = scanf(" %29[^\n]", email[indice]);
@@ -144,10 +142,12 @@ int cadastrarEmail(char email[][30], int indice){
 
     return 1;
 }
+
 int cadastrarSalario(float salario[], int indice){
     salario[indice] = SalarioValido();
     return 1;
 }
+
 float SalarioValido(void){
     float valor;
     int resultadoLeitura, entradaInvalida;
@@ -178,53 +178,9 @@ void mostrarFuncionarios(char nome[][50], char email[][30], float salario[], int
         printf("\nNenhum funcionario cadastrado ainda.\n");
         return;
     }
-    printf("\n %-4s %-30s %-25s %-s\n", "Ind", "Nome", "E-mail", "Salario"); //imprime um aalgo, ocupando um espaço de N caracteres, alinhada à esquerda (o '-' faz isso, sem o '-', alinharia à direita)
+    printf("\n %-4s %-50s %-30s %-s\n", "Ind", "Nome", "E-mail", "Salario"); //imprime um aalgo, ocupando um espaço de N caracteres, alinhada à esquerda (o '-' faz isso, sem o '-', alinharia à direita)
                                                                            // esses números garantem que as colunas fiquem alinhadas 
     for(int i = 0; i < funcionarios; i++){
-         printf("%-4d %-30s %-25s %.2f\n", i + 1, nome[i], email[i], salario[i]);
+         printf("%-4d %-50s %-30s %.2f\n", i + 1, nome[i], email[i], salario[i]);
     }
-}
-void limparBuffer(void){
-    while (getchar() != '\n');
-}
-void pausar(void){
-    printf("\nAperte ENTER para continuar...");
-    getchar();
-}
-void buscarFuncionario(char nomes[][50], char emails[][30], float salarios[], int qtdFuncionarios){
-    char entrada[50];
-    int encontrado = 0;
-    limpar();
-
-    if (qtdFuncionarios == 0){
-        printf("Não há funcionários cadastrados...\n");
-        limparBuffer();
-        pausar();
-        return;
-    }
-
-    printf("Nome Completo: ");
-    scanf(" %49[^\n]", entrada);
-
-    for (int i = 0; i < qtdFuncionarios; i++){
-        if (strcmp(entrada, nomes[i]) == 0){
-            encontrado = 1;
-            printf("\n------------------------------------------\n");
-            printf("Nome: %s\n", nomes[i]);
-            printf("Email: %s\n", emails[i]);
-            printf("Salario: R$ %.2f\n", salarios[i]);
-            break;
-        }
-    }
-
-    if (encontrado == 0){
-        printf("\nNenhuma pessoa encontrada com esse nome\n");
-    }
-
-    limparBuffer();
-    pausar();
-    limpar();
-}
-void limpar(void){
-    system("clear");
 }
