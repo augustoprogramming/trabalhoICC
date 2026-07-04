@@ -237,6 +237,7 @@ void calcularMedia(float salario[], int indice){
         printf("Nao ha funcionarios cadastrados.\n");
         limparBuffer();
         pausar();
+        limpar();
         return;
     }
 
@@ -249,5 +250,6 @@ void calcularMedia(float salario[], int indice){
     printf("Media salarial dos funcionarios: R$ %.2f\n", mediaSalarial);
     limparBuffer();
     pausar();
+    limpar();
     return;
 }
