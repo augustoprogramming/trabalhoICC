@@ -48,6 +48,7 @@ int main(){
                 break;
 
             case 2:
+                // funcao mostrar funcionários
                 mostrarFuncionarios(nome, email, salario, funcionarios);
                 break;
 
@@ -181,9 +182,10 @@ void mostrarFuncionarios(char nome[][50], char email[][30], float salario[], int
         printf("\nNenhum funcionario cadastrado ainda.\n");
         return;
     }
-    printf("\n %-4s %-50s %-30s %-s\n", "Ind", "Nome", "E-mail", "Salario"); 
+    printf("\n %-4s %-30s %-25s %-s\n", "Ind", "Nome", "E-mail", "Salario"); //imprime um aalgo, ocupando um espaço de N caracteres, alinhada à esquerda (o '-' faz isso, sem o '-', alinharia à direita)
+                                                                           // esses números garantem que as colunas fiquem alinhadas 
     for(int i = 0; i < funcionarios; i++){
-         printf("%-4d %-50s %-30s %.2f\n", i + 1, nome[i], email[i], salario[i]);
+         printf("%-4d %-30s %-25s %.2f\n", i + 1, nome[i], email[i], salario[i]);
     }
 }
 void limparBuffer(void){
@@ -252,7 +254,6 @@ void calcularMedia(float salario[], int indice){
     pausar();
     limpar();
     return;
-}
 
     void mostrarMaiorSalario(char nome[][50], float salario[], int funcionarios){
         if (funcionarios == 0){
@@ -271,3 +272,4 @@ void calcularMedia(float salario[], int indice){
         printf("\nMaior salario eh: %.2f\n", salario[indiceMaior]);
         printf("\nFuncionario: %s\n", nome[indiceMaior]);
     }
+}
