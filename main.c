@@ -8,6 +8,7 @@ int cadastrarSalario(float salario[], int indice);
 float SalarioValido(void);
 void mostrarFuncionarios(char nome[][50], char email[][30], float salario[], int funcionarios);
 void limparBuffer(void);
+void pausar(void);
 
 int main(){
     int opcao;
@@ -181,4 +182,8 @@ void mostrarFuncionarios(char nome[][50], char email[][30], float salario[], int
 }
 void limparBuffer(void){
     while (getchar() != '\n');
+}
+void pausar(void){
+    printf("\nAperte ENTER para continuar...");
+    getchar();
 }
