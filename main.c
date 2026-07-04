@@ -14,6 +14,8 @@ void limparBuffer(void);
 void pausar(void);
 void limpar(void);
 void calcularMedia(float salario[], int indice);
+void mostrarMaiorSalario(char nome[][50], float salario[], int funcionarios);
+
 
 int main(){
     int opcao;
@@ -55,7 +57,7 @@ int main(){
                 break;
 
             case 4:
-                // funcao mostrar maior salário
+                mostrarMaiorSalario(nome, salario, funcionarios);
                 break;
             
             case 5:
@@ -252,4 +254,22 @@ void calcularMedia(float salario[], int indice){
     pausar();
     limpar();
     return;
+
+    void mostrarMaiorSalario(char nome[][50], float salario[], int funcionarios){
+        if (funcionarios == 0){
+            printf("\nNenhum funcionario cadastrado ainda.\n");
+            return;
+        }
+
+        int indiceMaior = 0;
+
+        for (int i = 1; i < funcionarios; i++){
+            if (salario[i] > salario[indiceMaior]){
+                indiceMaior = i;
+            }
+        }
+
+        printf("\nMaior salario eh: %.2f\n", salario[indiceMaior]);
+        printf("\nFuncionario: %s\n", nome[indiceMaior]);
+    }
 }
