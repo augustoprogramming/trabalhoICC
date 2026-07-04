@@ -7,7 +7,7 @@ int cadastrarEmail(char email[][30], int indice);
 int cadastrarSalario(float salario[], int indice);
 float SalarioValido(void);
 void mostrarFuncionarios(char nome[][50], char email[][30], float salario[], int funcionarios);
-
+void limparBuffer(void);
 
 int main(){
     int opcao;
@@ -93,7 +93,6 @@ int lerInteiroNoIntervalo (int minimo, int maximo){
 
     return valor;
 }
-
 int lerOpcaoMenu(void) {
     int opcao;
 
@@ -116,7 +115,6 @@ int lerOpcaoMenu(void) {
     
     return opcao;
 }
-
 int cadastrarNome(char nome[][50], int indice){
     printf("Nome do funcionario: ");
     int resultado = scanf(" %49[^\n]", nome[indice]);
@@ -129,7 +127,6 @@ int cadastrarNome(char nome[][50], int indice){
 
     return 1;
 }
-
 int cadastrarEmail(char email[][30], int indice){
     printf("E-mail do funcionario: ");
     int resultado = scanf(" %29[^\n]", email[indice]);
@@ -142,12 +139,10 @@ int cadastrarEmail(char email[][30], int indice){
 
     return 1;
 }
-
 int cadastrarSalario(float salario[], int indice){
     salario[indice] = SalarioValido();
     return 1;
 }
-
 float SalarioValido(void){
     float valor;
     int resultadoLeitura, entradaInvalida;
@@ -183,4 +178,7 @@ void mostrarFuncionarios(char nome[][50], char email[][30], float salario[], int
     for(int i = 0; i < funcionarios; i++){
          printf("%-4d %-30s %-25s %.2f\n", i + 1, nome[i], email[i], salario[i]);
     }
+}
+void limparBuffer(void){
+    while (getchar() != '\n');
 }
