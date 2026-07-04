@@ -12,6 +12,7 @@ void mostrarFuncionarios(char nome[][50], char email[][30], float salario[], int
 void buscarFuncionario(char nomes[][50], char emails[][30], float salarios[], int qtdFuncionarios);
 void limparBuffer(void);
 void pausar(void);
+void limpar(void);
 
 int main(){
     int opcao;
@@ -193,7 +194,7 @@ void pausar(void){
 void buscarFuncionario(char nomes[][50], char emails[][30], float salarios[], int qtdFuncionarios){
     char entrada[50];
     int encontrado = 0;
-    system("clear");
+    limpar();
 
     if (qtdFuncionarios == 0){
         printf("Não há funcionários cadastrados...\n");
@@ -222,5 +223,8 @@ void buscarFuncionario(char nomes[][50], char emails[][30], float salarios[], in
 
     limparBuffer();
     pausar();
+    limpar();
+}
+void limpar(void){
     system("clear");
 }
