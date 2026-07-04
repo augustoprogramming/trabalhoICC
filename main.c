@@ -60,7 +60,6 @@ int main(){
                 break;
             
             case 5:
-                // funcao calcular média salarial
                 calcularMedia(salario, funcionarios);
                 break;
             
