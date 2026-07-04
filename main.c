@@ -229,7 +229,7 @@ void buscarFuncionario(char nomes[][50], char emails[][30], float salarios[], in
 }
 
 void limpar(void){
-    system("clear");
+    system("cls");
 }
 
 void calcularMedia(float salario[], int indice){
