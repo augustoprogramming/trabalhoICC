@@ -178,8 +178,7 @@ void mostrarFuncionarios(char nome[][50], char email[][30], float salario[], int
         printf("\nNenhum funcionario cadastrado ainda.\n");
         return;
     }
-    printf("\n %-4s %-50s %-30s %-s\n", "Ind", "Nome", "E-mail", "Salario"); //imprime um aalgo, ocupando um espaço de N caracteres, alinhada à esquerda (o '-' faz isso, sem o '-', alinharia à direita)
-                                                                           // esses números garantem que as colunas fiquem alinhadas 
+    printf("\n %-4s %-50s %-30s %-s\n", "Ind", "Nome", "E-mail", "Salario");
     for(int i = 0; i < funcionarios; i++){
          printf("%-4d %-50s %-30s %.2f\n", i + 1, nome[i], email[i], salario[i]);
     }
