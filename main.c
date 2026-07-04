@@ -196,10 +196,10 @@ void pausar(void){
 void buscarFuncionario(char nomes[][50], char emails[][30], float salarios[], int qtdFuncionarios){
     char entrada[50];
     int encontrado = 0;
-    system("clear");
+    limpar();
 
     if (qtdFuncionarios == 0){
-        printf("Nao ha funcionarios cadastrados...\n");
+        printf("Não há funcionários cadastrados...\n");
         limparBuffer();
         pausar();
         return;
@@ -225,6 +225,10 @@ void buscarFuncionario(char nomes[][50], char emails[][30], float salarios[], in
 
     limparBuffer();
     pausar();
+    limpar();
+}
+
+void limpar(void){
     system("clear");
 }
 
