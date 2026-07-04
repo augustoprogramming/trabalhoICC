@@ -13,6 +13,7 @@ void buscarFuncionario(char nomes[][50], char emails[][30], float salarios[], in
 void limparBuffer(void);
 void pausar(void);
 void limpar(void);
+void calcularMedia(float salario[], int indice);
 
 int main(){
     int opcao;
@@ -59,6 +60,7 @@ int main(){
             
             case 5:
                 // funcao calcular média salarial
+                calcularMedia(salario, funcionarios);
                 break;
             
             case 6:
@@ -225,6 +227,29 @@ void buscarFuncionario(char nomes[][50], char emails[][30], float salarios[], in
     pausar();
     limpar();
 }
+
 void limpar(void){
-    system("clear");
+    system("cls");
+}
+
+void calcularMedia(float salario[], int indice){
+    if(indice == 0){
+        printf("Nao ha funcionarios cadastrados.\n");
+        limparBuffer();
+        pausar();
+        limpar();
+        return;
+    }
+
+    float soma = 0;
+    float mediaSalarial;
+    for(int i = 0; i < indice; i++){
+        soma += salario[i];
+    }
+    mediaSalarial = (soma/indice);
+    printf("Media salarial dos funcionarios: R$ %.2f\n", mediaSalarial);
+    limparBuffer();
+    pausar();
+    limpar();
+    return;
 }
