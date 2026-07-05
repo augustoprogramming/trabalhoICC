@@ -2,45 +2,48 @@
 #include <stdlib.h>
 #include <string.h>
 
-int lerInteiroNoIntervalo (int minimo, int maximo);
+int lerInteiroNoIntervalo(int minimo, int maximo);
 int lerOpcaoMenu(void);
-int cadastrarNome(char nome[][50], int indice);
-int cadastrarEmail(char email[][30], int indice);
-int cadastrarSalario(float salario[], int indice);
-float SalarioValido(void);
-void mostrarFuncionarios(char nome[][50], char email[][30], float salario[], int funcionarios);
-void buscarFuncionario(char nomes[][50], char emails[][30], float salarios[], int qtdFuncionarios);
+int cadastrarNome(char nomes[][50], int indice);
+int cadastrarEmail(char emails[][30], int indice);
+int cadastrarSalario(float salarios[], int indice);
+float lerSalarioValido(void);
+void mostrarFuncionarios(char nomes[][50], char emails[][30], float salarios[], int quantidadeFuncionarios);
+void buscarFuncionario(char nomes[][50], char emails[][30], float salarios[], int quantidadeFuncionarios);
 void limparBuffer(void);
 void pausar(void);
-void limpar(void);
-void calcularMedia(float salario[], int indice);
-void mostrarMaiorSalario(char nome[][50], float salario[], int funcionarios);
+void limparTela(void);
+void calcularMedia(float salarios[], int quantidadeFuncionarios);
+void mostrarMaiorSalario(char nomes[][50], float salarios[], int quantidadeFuncionarios);
 
 
-int main(){
+int main(void) {
     int opcao;
-    char nome[10][50];
-    char email[10][30];
-    float salario[10];
-    int funcionarios = 0;
+    char nomes[10][50];
+    char emails[10][30];
+    float salarios[10];
+    int quantidadeFuncionarios = 0;
 
-    do
-    {
+    do {
         opcao = lerOpcaoMenu();
-    
-        switch (opcao){
+
+        if (opcao != 6) {
+            limparTela();
+        }
+
+        switch (opcao) {
             case 1:
-                if(funcionarios == 10){
+                if (quantidadeFuncionarios == 10) {
                     printf("AGENDA CHEIA! Por favor escolha outra opcao!!!\n");
                     break;
                 }
 
-                int verificar_nome = cadastrarNome(nome, funcionarios);
-                int verificar_email = cadastrarEmail(email, funcionarios);
-                int verificar_salario = cadastrarSalario(salario, funcionarios);
+                int nomeValido = cadastrarNome(nomes, quantidadeFuncionarios);
+                int emailValido = cadastrarEmail(emails, quantidadeFuncionarios);
+                int salarioValido = cadastrarSalario(salarios, quantidadeFuncionarios);
 
-                if (verificar_nome && verificar_email && verificar_salario) {
-                    funcionarios++;
+                if (nomeValido && emailValido && salarioValido) {
+                    quantidadeFuncionarios++;
                     printf("Funcionario cadastrado com sucesso!\n");
                 } else {
                     printf("Falha no cadastro. Tente novamente.\n");
@@ -48,19 +51,19 @@ int main(){
                 break;
 
             case 2:
-                mostrarFuncionarios(nome, email, salario, funcionarios);
+                mostrarFuncionarios(nomes, emails, salarios, quantidadeFuncionarios);
                 break;
 
             case 3:
-                buscarFuncionario(nome, email, salario, funcionarios);
+                buscarFuncionario(nomes, emails, salarios, quantidadeFuncionarios);
                 break;
 
             case 4:
-                mostrarMaiorSalario(nome, salario, funcionarios);
+                mostrarMaiorSalario(nomes, salarios, quantidadeFuncionarios);
                 break;
             
             case 5:
-                calcularMedia(salario, funcionarios);
+                calcularMedia(salarios, quantidadeFuncionarios);
                 break;
             
             case 6:
@@ -72,34 +75,39 @@ int main(){
                 break;
         }
 
+        if (opcao != 6) {
+            limparBuffer();
+            pausar();
+            limparTela();
+        }
+
     } while (opcao != 6);
 
     return 0;
 }
 
-int lerInteiroNoIntervalo (int minimo, int maximo){
+int lerInteiroNoIntervalo(int minimo, int maximo) {
     int resultadoLeitura, valor, entradaInvalida;
 
-    do
-    {   
+    do {
         resultadoLeitura = scanf("%d", &valor);
 
-        if (resultadoLeitura != 1){
+        if (resultadoLeitura != 1) {
             entradaInvalida = 1;
             printf("Entrada invalida\n");
-            while(getchar() != '\n');
-        }
-        else {
+            while (getchar() != '\n');
+        } else {
             entradaInvalida = (valor > maximo || valor < minimo);
             if (entradaInvalida) {
                 printf("Valor invalido\n");
             }
         }
 
-    } while(entradaInvalida);
+    } while (entradaInvalida);
 
     return valor;
 }
+
 int lerOpcaoMenu(void) {
     int opcao;
 
@@ -122,9 +130,10 @@ int lerOpcaoMenu(void) {
     
     return opcao;
 }
-int cadastrarNome(char nome[][50], int indice){
+
+int cadastrarNome(char nomes[][50], int indice) {
     printf("Nome do funcionario: ");
-    int resultado = scanf(" %49[^\n]", nome[indice]);
+    int resultado = scanf(" %49[^\n]", nomes[indice]);
 
     if (resultado != 1) {
         printf("Nome invalido.\n");
@@ -134,9 +143,10 @@ int cadastrarNome(char nome[][50], int indice){
 
     return 1;
 }
-int cadastrarEmail(char email[][30], int indice){
+
+int cadastrarEmail(char emails[][30], int indice) {
     printf("E-mail do funcionario: ");
-    int resultado = scanf(" %29[^\n]", email[indice]);
+    int resultado = scanf(" %29[^\n]", emails[indice]);
 
     if (resultado != 1) {
         printf("E-mail invalido.\n");
@@ -146,16 +156,17 @@ int cadastrarEmail(char email[][30], int indice){
 
     return 1;
 }
-int cadastrarSalario(float salario[], int indice){
-    salario[indice] = SalarioValido();
+
+int cadastrarSalario(float salarios[], int indice) {
+    salarios[indice] = lerSalarioValido();
     return 1;
 }
-float SalarioValido(void){
+
+float lerSalarioValido(void) {
     float valor;
     int resultadoLeitura, entradaInvalida;
 
-    do
-    {
+    do {
         printf("Salario do funcionario: ");
         resultadoLeitura = scanf("%f", &valor);
 
@@ -163,8 +174,7 @@ float SalarioValido(void){
             entradaInvalida = 1;
             printf("Entrada invalida (deve ser um numero)\n");
             while (getchar() != '\n');
-        }
-        else {
+        } else {
             entradaInvalida = (valor < 0);
             if (entradaInvalida) {
                 printf("Salario nao pode ser negativo\n");
@@ -175,40 +185,42 @@ float SalarioValido(void){
 
     return valor;
 }
-void mostrarFuncionarios(char nome[][50], char email[][30], float salario[], int funcionarios) {
-    if (funcionarios == 0){
+
+void mostrarFuncionarios(char nomes[][50], char emails[][30], float salarios[], int quantidadeFuncionarios) {
+    if (quantidadeFuncionarios == 0) {
         printf("\nNenhum funcionario cadastrado ainda.\n");
         return;
     }
-    printf("\n %-4s %-50s %-30s %-s\n", "Ind", "Nome", "E-mail", "Salario"); 
-    for(int i = 0; i < funcionarios; i++){
-         printf("%-4d %-50s %-30s %.2f\n", i + 1, nome[i], email[i], salario[i]);
+
+    printf("\n %-4s %-50s %-30s %-s\n", "Ind", "Nome", "E-mail", "Salario");
+    for (int i = 0; i < quantidadeFuncionarios; i++) {
+        printf("%-4d %-50s %-30s %.2f\n", i + 1, nomes[i], emails[i], salarios[i]);
     }
 }
-void limparBuffer(void){
+
+void limparBuffer(void) {
     while (getchar() != '\n');
 }
-void pausar(void){
+
+void pausar(void) {
     printf("\nAperte ENTER para continuar...");
     getchar();
 }
-void buscarFuncionario(char nomes[][50], char emails[][30], float salarios[], int qtdFuncionarios){
+
+void buscarFuncionario(char nomes[][50], char emails[][30], float salarios[], int quantidadeFuncionarios) {
     char entrada[50];
     int encontrado = 0;
-    limpar();
 
-    if (qtdFuncionarios == 0){
-        printf("Nao ha funcionarios cadastrados...\n");
-        limparBuffer();
-        pausar();
+    if (quantidadeFuncionarios == 0) {
+        printf("Não há funcionários cadastrados...\n");
         return;
     }
 
     printf("Nome Completo: ");
     scanf(" %49[^\n]", entrada);
 
-    for (int i = 0; i < qtdFuncionarios; i++){
-        if (strcmp(entrada, nomes[i]) == 0){
+    for (int i = 0; i < quantidadeFuncionarios; i++) {
+        if (strcmp(entrada, nomes[i]) == 0) {
             encontrado = 1;
             printf("\n------------------------------------------\n");
             printf("Nome: %s\n", nomes[i]);
@@ -218,55 +230,47 @@ void buscarFuncionario(char nomes[][50], char emails[][30], float salarios[], in
         }
     }
 
-    if (encontrado == 0){
+    if (encontrado == 0) {
         printf("\nNenhuma pessoa encontrada com esse nome\n");
     }
-
-    limparBuffer();
-    pausar();
-    limpar();
 }
 
-void limpar(void){
+void limparTela(void) {
     system("cls");
 }
 
-void calcularMedia(float salario[], int indice){
-    if(indice == 0){
+void calcularMedia(float salarios[], int quantidadeFuncionarios) {
+    if (quantidadeFuncionarios == 0) {
         printf("Nao ha funcionarios cadastrados.\n");
-        limparBuffer();
-        pausar();
-        limpar();
         return;
     }
 
     float soma = 0;
     float mediaSalarial;
-    for(int i = 0; i < indice; i++){
-        soma += salario[i];
+
+    for (int i = 0; i < quantidadeFuncionarios; i++) {
+        soma += salarios[i];
     }
-    mediaSalarial = (soma/indice);
+
+    mediaSalarial = (soma / quantidadeFuncionarios);
     printf("Media salarial dos funcionarios: R$ %.2f\n", mediaSalarial);
-    limparBuffer();
-    pausar();
-    limpar();
     return;
 }
 
-    void mostrarMaiorSalario(char nome[][50], float salario[], int funcionarios){
-        if (funcionarios == 0){
-            printf("\nNenhum funcionario cadastrado ainda.\n");
-            return;
-        }
-
-        int indiceMaior = 0;
-
-        for (int i = 1; i < funcionarios; i++){
-            if (salario[i] > salario[indiceMaior]){
-                indiceMaior = i;
-            }
-        }
-
-        printf("\nMaior salario eh: %.2f\n", salario[indiceMaior]);
-        printf("\nFuncionario: %s\n", nome[indiceMaior]);
+void mostrarMaiorSalario(char nomes[][50], float salarios[], int quantidadeFuncionarios) {
+    if (quantidadeFuncionarios == 0) {
+        printf("\nNenhum funcionario cadastrado ainda.\n");
+        return;
     }
+
+    int indiceMaior = 0;
+
+    for (int i = 1; i < quantidadeFuncionarios; i++) {
+        if (salarios[i] > salarios[indiceMaior]) {
+            indiceMaior = i;
+        }
+    }
+
+    printf("\nMaior salario eh: %.2f\n", salarios[indiceMaior]);
+    printf("\nFuncionario: %s\n", nomes[indiceMaior]);
+}
